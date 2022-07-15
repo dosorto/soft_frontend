@@ -8,6 +8,8 @@ import 'package:soft_frontend/screens/tipoPago/editarTipoPago.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/eliminarTipoPago.screen.dart';
 import 'package:soft_frontend/services/buscarTipoPago.service.dart';
 
+import '../../models/tipoPago.model.dart';
+
 class BuscarTipoPago extends StatefulWidget {
   const BuscarTipoPago({Key? key}) : super(key: key);
   @override
