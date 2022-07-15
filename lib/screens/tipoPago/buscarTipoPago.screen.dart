@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:soft_frontend/models/tipoPago.model.dart';
+import 'package:http/http.dart';
+import 'package:soft_frontend/models/UnTipoPagoBuscado.model.dart';
 import 'package:soft_frontend/models/tipoPagoBuscado.model.dart';
-import 'package:soft_frontend/models/unPagoBuscado.model.dart';
 import 'package:soft_frontend/screens/tipoPago/crearTipoPago.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/editarTipoPago.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/eliminarTipoPago.screen.dart';
@@ -67,9 +67,40 @@ class _BuscarTipoPagoState extends State<BuscarTipoPago> {
                 onPressed: () async {
                   if (_textController.text.trim().isNotEmpty) {
                     print(_textController.text.trim());
-                    TipoPagoBuscado? tipoPago =
+                    UnTipoPagoBuscado? tipopagos =
                         await buscarPagoPorID(_textController.text.trim());
-                    print(tipoPago);
+                    //UnTipoPagoBuscado? tipopagos = response;
+                    //print(tipopagos);
+                    if (tipopagos == null) {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                                title: Text('No se encontro'),
+                                actions: [
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text('Cerrar'))
+                                ],
+                              ));
+                    } else {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                                title: Text('Encontrado'),
+                                actions: [
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text('Cerrar'))
+                                ],
+                              ));
+                    }
+                    //TipoPagoBuscado? tipoPago =
+                    //await buscarPagoPorID(_textController.text.trim());
+                    //print(tipoPago);
                   } else {
                     showDialog(
                         context: context,
