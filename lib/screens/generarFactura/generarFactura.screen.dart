@@ -50,39 +50,6 @@ class _CrearFacturaState extends State<CrearFactura> {
 
             //row para el idVenta
             //hacer un contorno para este row
-            Container(
-              margin: EdgeInsets.symmetric(
-                  vertical: size.height * 0.02, horizontal: size.width * 0.03),
-              padding: EdgeInsets.symmetric(
-                  vertical: size.height * 0.02, horizontal: size.height * 0.03),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(5))),
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Text(
-                      'idVenta',
-                      style: GoogleFonts.lato(
-                          fontSize: size.width * 0.01,
-                          fontWeight: FontWeight.w800),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: TextField(
-                      controller: idVentaController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
             Row(children: <Widget>[
               Container(
                 width: 20,
