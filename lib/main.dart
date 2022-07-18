@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soft_frontend/screens/generarFactura/escogerVenta.screen.dart';
 import 'package:soft_frontend/screens/generarFactura/generarFactura.screen.dart';
 import 'package:soft_frontend/screens/manipularFactura/manipularfactura.screen.dart';
 import 'package:soft_frontend/screens/screens.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: 'escoger_factura',
+      initialRoute: 'escoger_venta',
       routes: {
         'login': (_) => const Login(),
         'pantalla_principal': (_) => const PantallaPrincipal(),
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         'listar_tipopago': (_) => BuscarTipoPago(),
         'crear_tipopago': (_) => CrearTipoPagos(),
         'escoger_tipopago': (_) => EscogerTipoPago(),
+        'escoger_venta': (_) => EscogerVenta(),
         //'generar_factura': (_) => CrearFactura( ),
       },
     );

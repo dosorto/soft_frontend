@@ -14,10 +14,10 @@ class ManipularVenta {
 
   factory ManipularVenta.fromJson(Map<String, dynamic> json) => ManipularVenta(
         ventaA: List<MostrarVenta>.from(
-            json["ventas"].map((x) => MostrarVenta.fromJson(x))),
+            json["venta"].map((x) => MostrarVenta.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "ventas": List<dynamic>.from(ventaA.map((x) => x.toJson())),
+        "venta": List<dynamic>.from(ventaA.map((x) => x.toJson())),
       };
 }

@@ -15,7 +15,7 @@ Future<List<TipoPagoBuscado>> traerPago() async {
         .get(Uri.parse("http://localhost:8080/api/gene/buscartipopago"));
     if (response.statusCode == 200) {
       final tipopagos = manipularTipoPagoFromJson(response.body);
-
+      print(tipopagos);
       return tipopagos.tipoPago;
     } else {
       return PagoVacio;
@@ -36,7 +36,6 @@ Future<UnTipoPagoBuscado?> buscarPagoPorID(String idTipoPago) async {
   print(response.body);
   if (response.statusCode == 200) {
     final untipopago = UnTipoPagoBuscado.fromJson(jsonDecode(response.body));
-
     return untipopago;
   } else {
     return untipopago;

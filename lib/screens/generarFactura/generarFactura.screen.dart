@@ -2,6 +2,7 @@ import 'dart:js';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:soft_frontend/models/ventaBuscada.model.dart';
 import 'package:soft_frontend/screens/tipoPago/escogerTipoPago.screen.dart';
 import 'package:soft_frontend/services/cliente.service.dart';
 import 'package:soft_frontend/services/generarFactura.service.dart';
@@ -11,8 +12,9 @@ import 'package:soft_frontend/services/editarTipoPago.service.dart';
 import '../../models/tipoPagoBuscado.model.dart';
 
 class CrearFactura extends StatefulWidget {
-  final TipoPagoBuscado tipoPago;
-  const CrearFactura({Key? key, required this.tipoPago}) : super(key: key);
+  final MostrarVenta venta;
+
+  const CrearFactura({Key? key, required this.venta}) : super(key: key);
 
   @override
   State<CrearFactura> createState() => _CrearFacturaState();
@@ -24,25 +26,62 @@ class _CrearFacturaState extends State<CrearFactura> {
   var cantidadLetrasController = TextEditingController();
   var idTipoPagoController = TextEditingController();
   var idEmpleadoController = TextEditingController();
+  var idClienteController = TextEditingController();
   Widget build(BuildContext context) {
-    print(widget.tipoPago.idTipoPago);
-    idTipoPagoController.text = widget.tipoPago.idTipoPago.toString();
+    print(widget.venta.id);
+    idVentaController.text = widget.venta.id.toString();
+    print(widget.venta.idCliente);
+    idClienteController.text = widget.venta.idCliente.toString();
     //idTipoPagoController.text = widget.idTipoPago.toString();
     //tipoDePagoController.text = widget.tipoPago.tipoDePago;
     //crear varios campos de texto para ingresar los datos del cliente
     // ignore: dead_code, dead_code
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Factura Electronica'),
-        centerTitle: true,
-      ),
       body: Container(
+        decoration: BoxDecoration(color: Colors.white),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               height: 20,
+            ),
+            //insertar un row en un boxBorder
+
+            //row para el idVenta
+            //hacer un contorno para este row
+            Container(
+              margin: EdgeInsets.symmetric(
+                  vertical: size.height * 0.02, horizontal: size.width * 0.03),
+              padding: EdgeInsets.symmetric(
+                  vertical: size.height * 0.02, horizontal: size.height * 0.03),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(5))),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Text(
+                      'idVenta',
+                      style: GoogleFonts.lato(
+                          fontSize: size.width * 0.01,
+                          fontWeight: FontWeight.w800),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: TextField(
+                      controller: idVentaController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
             Row(children: <Widget>[
               Container(
@@ -50,14 +89,21 @@ class _CrearFacturaState extends State<CrearFactura> {
                 height: 30,
               ),
               Container(
+                child: Text(
+                  'Venta:',
+                  style: GoogleFonts.roboto(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+              ),
+              Container(
                 width: 90,
                 height: 30,
-                child: TextFormField(
+                child: TextField(
+                  textAlign: TextAlign.center,
                   controller: idVentaController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Venta',
-                  ),
+                  decoration: InputDecoration(),
                 ),
               ),
               Container(
@@ -146,6 +192,11 @@ class _CrearFacturaState extends State<CrearFactura> {
               ),
               //Indicar final de la ro
             ]),
+            Divider(
+              color: Colors.black,
+              thickness: 1,
+            ),
+
             SizedBox(
               height: 20,
             ),
@@ -158,6 +209,7 @@ class _CrearFacturaState extends State<CrearFactura> {
                 width: 100,
                 height: 30,
                 child: TextFormField(
+                  controller: idClienteController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'IdCliente',
@@ -222,6 +274,10 @@ class _CrearFacturaState extends State<CrearFactura> {
               ),
               //Indicar final de la ro
             ]),
+            Divider(
+              color: Colors.black,
+              thickness: 1,
+            ),
             SizedBox(
               height: 20,
             ),
@@ -299,6 +355,10 @@ class _CrearFacturaState extends State<CrearFactura> {
               ),
               //Indicar final de la ro
             ]),
+            Divider(
+              color: Colors.black,
+              thickness: 1,
+            ),
             SizedBox(
               height: 20,
             ),

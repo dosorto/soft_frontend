@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:soft_frontend/models/tipoPagoBuscado.model.dart';
 import 'package:soft_frontend/screens/generarFactura/generarFactura.screen.dart';
 import 'package:soft_frontend/models/ventaBuscada.model.dart';
 import 'package:soft_frontend/services/mostrarVentas.service.dart';
@@ -21,7 +20,7 @@ class _EscogerVentaState extends State<EscogerVenta> {
   }
 
   _cargarFact() async {
-    //this.venta = await traerVentas();
+    this.venta = await traerVentas();
     setState(() {});
   }
 
@@ -51,7 +50,7 @@ class _EscogerVentaState extends State<EscogerVenta> {
                             Expanded(
                               flex: 1,
                               child: Text(
-                                'TipoDePago',
+                                'idVenta',
                                 style: GoogleFonts.lato(
                                     fontSize: size.width * 0.01,
                                     fontWeight: FontWeight.w800),
@@ -60,7 +59,7 @@ class _EscogerVentaState extends State<EscogerVenta> {
                             Expanded(
                               flex: 2,
                               child: Text(
-                                'descripcionTipoPago',
+                                'idCliente',
                                 style: GoogleFonts.lato(
                                     fontSize: size.width * 0.01,
                                     fontWeight: FontWeight.w800),
@@ -117,8 +116,27 @@ class _EscogerVentaState extends State<EscogerVenta> {
             Expanded(
               flex: 1,
               child: Text(
-                '${venta}',
+                venta.id.toString(),
                 style: GoogleFonts.lato(fontSize: size.width * 0.009),
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Text(
+                venta.idCliente.toString(),
+                style: GoogleFonts.lato(fontSize: size.width * 0.009),
+              ),
+            ),
+            TextButton(
+              onPressed: null,
+              child: ElevatedButton(
+                onPressed: () => Navigator.of(context).push(
+                  new MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        new CrearFactura(venta: venta),
+                  ),
+                ),
+                child: Text('Seleccionar'),
               ),
             ),
           ],
