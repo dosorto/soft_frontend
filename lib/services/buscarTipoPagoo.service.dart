@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:soft_frontend/models/tipoPago.model.dart';
 import 'package:soft_frontend/models/tipoPagoBuscado.model.dart';
@@ -7,7 +7,7 @@ import 'package:soft_frontend/models/UnTipoPagoBuscado.model.dart';
 import 'package:soft_frontend/models/manipularTipoPago.dart';
 
 // ignore: non_constant_identifier_names
-
+List<TipoPagoBuscado> ListatipoPagoBuscado = [];
 Future<List<TipoPagoBuscado>> traerPago() async {
   List<TipoPagoBuscado> PagoVacio = [];
   try {
@@ -15,6 +15,7 @@ Future<List<TipoPagoBuscado>> traerPago() async {
         .get(Uri.parse("http://localhost:8080/api/gene/buscartipopago"));
     if (response.statusCode == 200) {
       final tipopagos = manipularTipoPagoFromJson(response.body);
+
       return tipopagos.tipoPago;
     } else {
       return PagoVacio;
@@ -24,24 +25,20 @@ Future<List<TipoPagoBuscado>> traerPago() async {
   }
 }
 
-Future buscarPagoPorID(String idTipoPago) async {
-  try {
-    var response = await http.post(
-      Uri.parse("http://localhost:8080/api/gene/buscartipopagoid"),
-      body: ({
-        'idTipoPago': idTipoPago,
-      }),
-    );
+Future<UnTipoPagoBuscado?> buscarPagoPorID(String idTipoPago) async {
+  UnTipoPagoBuscado? untipopago = null;
 
-    print(response.request.toString());
-    if (response.statusCode == 200) {
-      final tipoDePago =
-          UnTipoPagoBuscado.fromJson(jsonDecode(response.body.toString()));
-      return (tipoDePago);
-    } else {
-      return response.statusCode;
-    }
-  } catch (e) {
-    return e;
+  var response = await http.post(
+      Uri.parse("http://localhost:8080/api/gene/buscartipopagoid"),
+      body: {
+        'idTipoPago': idTipoPago,
+      });
+  print(response.body);
+  if (response.statusCode == 200) {
+    final untipopago = UnTipoPagoBuscado.fromJson(jsonDecode(response.body));
+
+    return untipopago;
+  } else {
+    return untipopago;
   }
 }

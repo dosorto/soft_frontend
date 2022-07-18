@@ -6,7 +6,7 @@ import 'package:soft_frontend/models/tipoPagoBuscado.model.dart';
 import 'package:soft_frontend/screens/tipoPago/crearTipoPago.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/editarTipoPago.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/eliminarTipoPago.screen.dart';
-import 'package:soft_frontend/services/buscarTipoPago.service.dart';
+import 'package:soft_frontend/services/buscarTipoPagoo.service.dart';
 
 import '../../models/tipoPago.model.dart';
 
@@ -70,7 +70,7 @@ class _BuscarTipoPagoState extends State<BuscarTipoPago> {
                   if (_textController.text.trim().isNotEmpty) {
                     print(_textController.text.trim());
                     UnTipoPagoBuscado? tipopagos =
-                        await buscarPagoPorID(_textController.text);
+                        await buscarPagoPorID(_textController.text.trim());
                     //UnTipoPagoBuscado? tipopagos = response;
                     print(tipopagos);
 
