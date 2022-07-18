@@ -7,6 +7,7 @@ import 'package:soft_frontend/screens/tipoPago/crearTipoPago.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/editarTipoPago.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/eliminarTipoPago.screen.dart';
 import 'package:soft_frontend/services/buscarTipoPagoo.service.dart';
+import 'package:soft_frontend/services/eliminarTipoPago.service.dart';
 
 import '../../models/tipoPago.model.dart';
 
@@ -17,7 +18,7 @@ class BuscarTipoPago extends StatefulWidget {
 }
 
 class _BuscarTipoPagoState extends State<BuscarTipoPago> {
-  final _textController = new TextEditingController();
+  final _textController = TextEditingController();
   List<TipoPagoBuscado> tipoPagos = [];
 
   @override
@@ -133,8 +134,8 @@ class _BuscarTipoPagoState extends State<BuscarTipoPago> {
                 child: Center(
                   child: ElevatedButton(
                     onPressed: () =>
-                        Navigator.of(context).push(new MaterialPageRoute(
-                      builder: (BuildContext context) => new CrearTipoPagos(),
+                        Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) => CrearTipoPagos(),
                     )),
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
@@ -238,29 +239,20 @@ class _BuscarTipoPagoState extends State<BuscarTipoPago> {
               ),
             ),
             TextButton(
-              onPressed: null,
-              child: ElevatedButton(
-                onPressed: () => Navigator.of(context).push(
-                  new MaterialPageRoute(
-                    builder: (BuildContext context) => new EditarTipoPagos(
-                      tipoPago: tipoPago,
-                    ),
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) => EditarTipoPagos(
+                    tipoPago: tipoPago,
                   ),
                 ),
-                child: Text('Editar'),
               ),
+              child: Text('Editar'),
             ),
             TextButton(
-              onPressed: null,
-              child: ElevatedButton(
-                onPressed: () => Navigator.of(context).push(
-                  new MaterialPageRoute(
-                    builder: (BuildContext context) =>
-                        new EliminarTipoPagos(tipoPago: tipoPago),
-                  ),
-                ),
-                child: Text('Eliminar'),
-              ),
+              onPressed: () =>
+                  EliminarTipoPago(tipoPago.idTipoPago.toString(), context),
+              child: Text('Eliminar'),
+              //recargar pagina despues de eliminar
             ),
           ],
         ));

@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_frontend/models/tipoPagoBuscado.model.dart';
 import 'package:soft_frontend/services/buscarTipoPagoo.service.dart';
 
+import '../generarFactura/generarFactura.screen.dart';
+
 class EscogerTipoPago extends StatefulWidget {
   @override
   State<EscogerTipoPago> createState() => _EscogerTipoPagoState();
@@ -127,13 +129,13 @@ class _EscogerTipoPagoState extends State<EscogerTipoPago> {
                 style: GoogleFonts.lato(fontSize: size.width * 0.009),
               ),
             ),
-            /* TextButton(
+            /*  TextButton(
               onPressed: null,
               child: ElevatedButton(
                 onPressed: () => Navigator.of(context).push(
                   new MaterialPageRoute(
                     builder: (BuildContext context) =>
-                        new CrearFactura(),
+                     //   new CrearFactura(tipoPago: tipoPago),  
                   ),
                 ),
                 child: Text('Seleccionar'),

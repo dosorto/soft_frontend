@@ -148,20 +148,6 @@ class _EscogerVentaState extends State<EscogerVenta> {
                 style: GoogleFonts.lato(fontSize: size.width * 0.009),
               ),
             ),
-            Expanded(
-              flex: 6,
-              child: Text(
-                venta.idUsuario.toString(),
-                style: GoogleFonts.lato(fontSize: size.width * 0.009),
-              ),
-            ),
-            Expanded(
-              flex: 7,
-              child: Text(
-                venta.idCliente.toString(),
-                style: GoogleFonts.lato(fontSize: size.width * 0.009),
-              ),
-            ),
             TextButton(
               onPressed: null,
               child: ElevatedButton(

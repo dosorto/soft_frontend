@@ -39,12 +39,12 @@ class _EditarTipoPagosState extends State<EditarTipoPagos> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "Crear un nuevo Tipo De Pago",
+                  "Editar Tipo De Pago",
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 3),
                 const Text(
-                  "Por favor llene los campos",
+                  "Por favor modifique los campos",
                   style: TextStyle(fontSize: 15, color: Color(0xff606060)),
                 ),
                 const SizedBox(height: 40),
