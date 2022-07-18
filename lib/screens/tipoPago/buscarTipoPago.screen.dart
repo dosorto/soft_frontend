@@ -70,14 +70,15 @@ class _BuscarTipoPagoState extends State<BuscarTipoPago> {
                   if (_textController.text.trim().isNotEmpty) {
                     print(_textController.text.trim());
                     UnTipoPagoBuscado? tipopagos =
-                        await buscarPagoPorID(_textController.text.trim());
+                        await buscarPagoPorID(_textController.text);
                     //UnTipoPagoBuscado? tipopagos = response;
-                    //print(tipopagos);
-                    if (tipopagos == null) {
+                    print(tipopagos);
+
+                    if (tipopagos != null) {
                       showDialog(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
-                                title: Text('No se encontro'),
+                                title: Text('Encontro'),
                                 actions: [
                                   ElevatedButton(
                                       onPressed: () {
@@ -90,7 +91,7 @@ class _BuscarTipoPagoState extends State<BuscarTipoPago> {
                       showDialog(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
-                                title: Text('Encontrado'),
+                                title: Text('No  encontrado'),
                                 actions: [
                                   ElevatedButton(
                                       onPressed: () {
@@ -225,14 +226,14 @@ class _BuscarTipoPagoState extends State<BuscarTipoPago> {
             Expanded(
               flex: 1,
               child: Text(
-                tipoPago.tipoDePago,
+                tipoPago.tipoDePago.toString(),
                 style: GoogleFonts.lato(fontSize: size.width * 0.009),
               ),
             ),
             Expanded(
               flex: 2,
               child: Text(
-                tipoPago.descripcionTipoPago,
+                tipoPago.descripcionTipoPago.toString(),
                 style: GoogleFonts.lato(fontSize: size.width * 0.009),
               ),
             ),

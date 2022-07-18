@@ -37,7 +37,7 @@ Future buscarPagoPorID(String idTipoPago) async {
     if (response.statusCode == 200) {
       final tipoDePago =
           UnTipoPagoBuscado.fromJson(jsonDecode(response.body.toString()));
-      print(tipoDePago);
+      return (tipoDePago);
     } else {
       return response.statusCode;
     }
