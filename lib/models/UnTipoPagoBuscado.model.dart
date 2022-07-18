@@ -1,48 +1,68 @@
+// To parse this JSON data, do
+//
+//     final unTipoPagoBuscado = unTipoPagoBuscadoFromJson(jsonString);
+
 import 'dart:convert';
 
 UnTipoPagoBuscado unTipoPagoBuscadoFromJson(String str) =>
     UnTipoPagoBuscado.fromJson(json.decode(str));
 
-String UnTipoPagoBuscadoToJson(UnTipoPagoBuscado data) =>
+String unTipoPagoBuscadoToJson(UnTipoPagoBuscado data) =>
     json.encode(data.toJson());
 
 class UnTipoPagoBuscado {
   UnTipoPagoBuscado({
-    required this.untipopago,
+    required this.message,
+    required this.tipopago,
   });
 
-  Untipopago untipopago;
+  String message;
+  Tipopago tipopago;
 
   factory UnTipoPagoBuscado.fromJson(Map<String, dynamic> json) =>
       UnTipoPagoBuscado(
-        untipopago: Untipopago.fromJson(json["untipopago"]),
+        message: json["message"],
+        tipopago: Tipopago.fromJson(json["tipopago"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "untipopago": untipopago.toJson(),
+        "message": message,
+        "tipopago": tipopago.toJson(),
       };
 }
 
-class Untipopago {
-  Untipopago({
+class Tipopago {
+  Tipopago({
     required this.idTipoPago,
     required this.tipoDePago,
     required this.descripcionTipoPago,
+    required this.isDelete,
+    required this.createdAt,
+    required this.updatedAt,
   });
 
   int idTipoPago;
   String tipoDePago;
   String descripcionTipoPago;
+  bool isDelete;
+  DateTime createdAt;
+  DateTime updatedAt;
 
-  factory Untipopago.fromJson(Map<String, dynamic> json) => Untipopago(
+  factory Tipopago.fromJson(Map<String, dynamic> json) => Tipopago(
         idTipoPago: json["idTipoPago"],
         tipoDePago: json["tipoDePago"],
         descripcionTipoPago: json["descripcionTipoPago"],
+        isDelete: json["isDelete"],
+        createdAt: DateTime.parse(json["createdAt"]),
+        updatedAt: DateTime.parse(json["updatedAt"]),
       );
 
   Map<String, dynamic> toJson() => {
         "idTipoPago": idTipoPago,
         "tipoDePago": tipoDePago,
         "descripcionTipoPago": descripcionTipoPago,
+        "isDelete": isDelete,
+        "createdAt": createdAt.toIso8601String(),
+        "updatedAt": updatedAt.toIso8601String(),
       };
 }

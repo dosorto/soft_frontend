@@ -17,6 +17,13 @@ class MostrarVenta {
     required this.idSesion,
     required this.idUsuario,
     required this.idCliente,
+    required this.nombreCliente,
+    required this.dni,
+    required this.rtn,
+    required this.direccionCliente,
+    required this.telefonoCliente,
+    required this.idEmpleado,
+    required this.nombreEmpleado,
   });
 
   int id;
@@ -29,6 +36,13 @@ class MostrarVenta {
   int idSesion;
   int idUsuario;
   int idCliente;
+  String nombreCliente;
+  String dni;
+  String rtn;
+  String direccionCliente;
+  String telefonoCliente;
+  int idEmpleado;
+  String nombreEmpleado;
 
   factory MostrarVenta.fromJson(Map<String, dynamic> json) => MostrarVenta(
         id: json["id"],
@@ -41,6 +55,13 @@ class MostrarVenta {
         idSesion: json["idSesion"],
         idUsuario: json["idUsuario"],
         idCliente: json["idCliente"],
+        nombreCliente: json["nombreCliente"],
+        dni: json["dni"],
+        rtn: json["rtn"],
+        direccionCliente: json["direccionCliente"],
+        telefonoCliente: json["telefonoCliente"],
+        idEmpleado: json["idEmpleado"],
+        nombreEmpleado: json["nombreEmpleado"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -54,5 +75,12 @@ class MostrarVenta {
         "idSesion": idSesion,
         "idUsuario": idUsuario,
         "idCliente": idCliente,
+        "nombreCliente": nombreCliente,
+        "dni": dni,
+        "rtn": rtn,
+        "direccionCliente": direccionCliente,
+        "telefonoCliente": telefonoCliente,
+        "idEmpleado": idEmpleado,
+        "nombreEmpleado": nombreEmpleado,
       };
 }

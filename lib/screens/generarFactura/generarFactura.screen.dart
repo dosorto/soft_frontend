@@ -32,10 +32,21 @@ class _CrearFacturaState extends State<CrearFactura> {
   var cantidadLetrasController = TextEditingController();
   var idTipoPagoController = TextEditingController();
   var idUsuarioController = TextEditingController();
-  var idEmpleadoController = TextEditingController();
   var idClienteController = TextEditingController();
+  var nombreClienteController = TextEditingController();
+  var rtnClienteController = TextEditingController();
+  var dniClienteController = TextEditingController();
+  var direccionClienteController = TextEditingController();
+  var telefonoClienteController = TextEditingController();
+  var idEmpleadoController = TextEditingController();
+  var nombreEmpleadoController = TextEditingController();
+  var estadoController = TextEditingController();
+  //colocar fecha de hoy en un controlador
+
+  var FechaController = TextEditingController();
 
   Widget build(BuildContext context) {
+    estadoController.text = '1';
     idVentaController.text = widget.venta.id.toString();
     totalISVController.text = widget.venta.totalIsv.toString();
     totalVentaController.text = widget.venta.totalVenta.toString();
@@ -45,6 +56,13 @@ class _CrearFacturaState extends State<CrearFactura> {
     establecimientoController.text = widget.venta.establecimiento.toString();
     idUsuarioController.text = widget.venta.idUsuario.toString();
     idClienteController.text = widget.venta.idCliente.toString();
+    nombreClienteController.text = widget.venta.nombreCliente.toString();
+    dniClienteController.text = widget.venta.dni.toString();
+    rtnClienteController.text = widget.venta.rtn.toString();
+    direccionClienteController.text = widget.venta.direccionCliente.toString();
+    idEmpleadoController.text = widget.venta.idEmpleado.toString();
+    nombreEmpleadoController.text = widget.venta.nombreEmpleado.toString();
+
     //idTipoPagoController.text = widget.idTipoPago.toString();
     //tipoDePagoController.text = widget.tipoPago.tipoDePago;
     //crear varios campos de texto para ingresar los datos del cliente
@@ -261,6 +279,7 @@ class _CrearFacturaState extends State<CrearFactura> {
                       width: 80,
                       height: 30,
                       child: TextField(
+                        controller: nombreClienteController,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(),
                       ),
@@ -280,6 +299,7 @@ class _CrearFacturaState extends State<CrearFactura> {
                       width: 80,
                       height: 30,
                       child: TextField(
+                        controller: rtnClienteController,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(),
                       ),
@@ -299,6 +319,7 @@ class _CrearFacturaState extends State<CrearFactura> {
                       width: 80,
                       height: 30,
                       child: TextField(
+                        controller: dniClienteController,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(),
                       ),
@@ -318,6 +339,7 @@ class _CrearFacturaState extends State<CrearFactura> {
                       width: 80,
                       height: 30,
                       child: TextField(
+                        controller: direccionClienteController,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(),
                       ),
@@ -349,6 +371,7 @@ class _CrearFacturaState extends State<CrearFactura> {
                       width: 80,
                       height: 30,
                       child: TextField(
+                        controller: nombreEmpleadoController,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(),
                       ),
@@ -393,6 +416,7 @@ class _CrearFacturaState extends State<CrearFactura> {
                       width: 80,
                       height: 30,
                       child: TextField(
+                        //colocar fecha de hoy en el textfield
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(),
                       ),
@@ -432,6 +456,7 @@ class _CrearFacturaState extends State<CrearFactura> {
                       width: 80,
                       height: 30,
                       child: TextField(
+                        controller: estadoController,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(),
                       ),

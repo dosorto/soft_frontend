@@ -5,7 +5,6 @@ import 'package:soft_frontend/models/UnTipoPagoBuscado.model.dart';
 import 'package:soft_frontend/models/tipoPagoBuscado.model.dart';
 import 'package:soft_frontend/screens/tipoPago/crearTipoPago.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/editarTipoPago.screen.dart';
-import 'package:soft_frontend/screens/tipoPago/eliminarTipoPago.screen.dart';
 import 'package:soft_frontend/services/buscarTipoPagoo.service.dart';
 import 'package:soft_frontend/services/eliminarTipoPago.service.dart';
 
@@ -73,13 +72,14 @@ class _BuscarTipoPagoState extends State<BuscarTipoPago> {
                     UnTipoPagoBuscado? tipopagos =
                         await buscarPagoPorID(_textController.text.trim());
                     //UnTipoPagoBuscado? tipopagos = response;
-                    print(tipopagos);
 
                     if (tipopagos != null) {
                       showDialog(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
                                 title: Text('Encontro'),
+                                //content: Text(
+                                //'Encontro el tipo de pago con id: ${tipopagos.idTipoPago.toString()}'),
                                 actions: [
                                   ElevatedButton(
                                       onPressed: () {

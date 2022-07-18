@@ -33,10 +33,9 @@ Future<UnTipoPagoBuscado?> buscarPagoPorID(String idTipoPago) async {
       body: {
         'idTipoPago': idTipoPago,
       });
-  print(response.body);
   if (response.statusCode == 200) {
-    final untipopago = UnTipoPagoBuscado.fromJson(jsonDecode(response.body));
-    return untipopago;
+    final tipopago = unTipoPagoBuscadoFromJson(jsonDecode(response.body));
+    return tipopago;
   } else {
     return untipopago;
   }
