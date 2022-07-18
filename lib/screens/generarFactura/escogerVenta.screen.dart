@@ -123,6 +123,41 @@ class _EscogerVentaState extends State<EscogerVenta> {
             Expanded(
               flex: 2,
               child: Text(
+                venta.totalIsv.toString(),
+                style: GoogleFonts.lato(fontSize: size.width * 0.009),
+              ),
+            ),
+            Expanded(
+              flex: 3,
+              child: Text(
+                venta.totalVenta.toString(),
+                style: GoogleFonts.lato(fontSize: size.width * 0.009),
+              ),
+            ),
+            Expanded(
+              flex: 4,
+              child: Text(
+                venta.totalDescuentoVenta.toString(),
+                style: GoogleFonts.lato(fontSize: size.width * 0.009),
+              ),
+            ),
+            Expanded(
+              flex: 5,
+              child: Text(
+                venta.puntoDeEmision.toString(),
+                style: GoogleFonts.lato(fontSize: size.width * 0.009),
+              ),
+            ),
+            Expanded(
+              flex: 6,
+              child: Text(
+                venta.idUsuario.toString(),
+                style: GoogleFonts.lato(fontSize: size.width * 0.009),
+              ),
+            ),
+            Expanded(
+              flex: 7,
+              child: Text(
                 venta.idCliente.toString(),
                 style: GoogleFonts.lato(fontSize: size.width * 0.009),
               ),

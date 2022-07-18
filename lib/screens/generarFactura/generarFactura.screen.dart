@@ -3,6 +3,7 @@ import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_frontend/models/ventaBuscada.model.dart';
+import 'package:soft_frontend/screens/tipoPago/crearTipoPago.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/escogerTipoPago.screen.dart';
 import 'package:soft_frontend/services/cliente.service.dart';
 import 'package:soft_frontend/services/generarFactura.service.dart';
@@ -22,15 +23,27 @@ class CrearFactura extends StatefulWidget {
 
 class _CrearFacturaState extends State<CrearFactura> {
   var idVentaController = TextEditingController();
+  var totalISVController = TextEditingController();
+  var totalVentaController = TextEditingController();
+  var totalDecuentoVentaController = TextEditingController();
+  var puntoEmisionController = TextEditingController();
+  var establecimientoController = TextEditingController();
   var subTotalExoneradoController = TextEditingController();
   var cantidadLetrasController = TextEditingController();
   var idTipoPagoController = TextEditingController();
+  var idUsuarioController = TextEditingController();
   var idEmpleadoController = TextEditingController();
   var idClienteController = TextEditingController();
+
   Widget build(BuildContext context) {
-    print(widget.venta.id);
     idVentaController.text = widget.venta.id.toString();
-    print(widget.venta.idCliente);
+    totalISVController.text = widget.venta.totalIsv.toString();
+    totalVentaController.text = widget.venta.totalVenta.toString();
+    totalDecuentoVentaController.text =
+        widget.venta.totalDescuentoVenta.toString();
+    puntoEmisionController.text = widget.venta.puntoDeEmision.toString();
+    establecimientoController.text = widget.venta.establecimiento.toString();
+    idUsuarioController.text = widget.venta.idUsuario.toString();
     idClienteController.text = widget.venta.idCliente.toString();
     //idTipoPagoController.text = widget.idTipoPago.toString();
     //tipoDePagoController.text = widget.tipoPago.tipoDePago;
@@ -46,402 +59,459 @@ class _CrearFacturaState extends State<CrearFactura> {
             SizedBox(
               height: 20,
             ),
-            //insertar un row en un boxBorder
-
-            //row para el idVenta
-            //hacer un contorno para este row
-            Row(children: <Widget>[
-              Container(
-                width: 20,
-                height: 30,
-              ),
-              Container(
-                child: Text(
-                  'Venta:',
-                  style: GoogleFonts.roboto(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w300,
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+              margin: EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Datos de la factura',
+                    style: GoogleFonts.poppins(
+                        color: Colors.blue, fontWeight: FontWeight.w500),
                   ),
-                ),
-              ),
-              Container(
-                width: 90,
-                height: 30,
-                child: TextField(
-                  textAlign: TextAlign.center,
-                  controller: idVentaController,
-                  decoration: InputDecoration(),
-                ),
-              ),
-              Container(
-                width: 20,
-                height: 30,
-              ),
-              Container(
-                width: 90,
-                height: 30,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Talonario',
-                  ),
-                ),
-              ),
-              Container(
-                width: 20,
-                height: 30,
-              ),
-              Container(
-                width: 200,
-                height: 30,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Numero de Factura',
-                  ),
-                ),
-              ),
-              Container(
-                width: 20,
-                height: 30,
-              ),
-              Container(
-                width: 200,
-                height: 30,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'CAI',
-                  ),
-                ),
-              ),
-              Container(
-                width: 20,
-                height: 30,
-              ),
-              Container(
-                width: 150,
-                height: 30,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Fecha de Emision',
-                  ),
-                ),
-              ),
-              Container(
-                width: 20,
-                height: 30,
-              ),
-              Container(
-                width: 200,
-                height: 30,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Rango Inicial',
-                  ),
-                ),
-              ),
-              Container(
-                width: 20,
-                height: 30,
-              ),
-              Container(
-                width: 200,
-                height: 30,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'RangoFinal',
-                  ),
-                ),
-              ),
-              //Indicar final de la ro
-            ]),
-            Divider(
-              color: Colors.black,
-              thickness: 1,
-            ),
-
-            SizedBox(
-              height: 20,
-            ),
-            Row(children: <Widget>[
-              Container(
-                width: 20,
-                height: 30,
-              ),
-              Container(
-                width: 100,
-                height: 30,
-                child: TextFormField(
-                  controller: idClienteController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'IdCliente',
-                  ),
-                ),
-              ),
-              Container(
-                width: 20,
-                height: 30,
-              ),
-              Container(
-                width: 250,
-                height: 30,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Nombre Cliente',
-                  ),
-                ),
-              ),
-              Container(
-                width: 20,
-                height: 30,
-              ),
-              Container(
-                width: 250,
-                height: 30,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'RTN',
-                  ),
-                ),
-              ),
-              Container(
-                width: 20,
-                height: 30,
-              ),
-              Container(
-                width: 250,
-                height: 30,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'DNI',
-                  ),
-                ),
-              ),
-              Container(
-                width: 20,
-                height: 30,
-              ),
-              Container(
-                width: 250,
-                height: 30,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Direccion',
-                  ),
-                ),
-              ),
-              //Indicar final de la ro
-            ]),
-            Divider(
-              color: Colors.black,
-              thickness: 1,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(children: <Widget>[
-              Container(
-                width: 20,
-                height: 30,
-              ),
-              Container(
-                width: 100,
-                height: 30,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'IdNumero',
-                  ),
-                ),
-              ),
-              Container(
-                width: 20,
-                height: 30,
-              ),
-              Container(
-                width: 250,
-                height: 30,
-                child: TextFormField(
-                  controller: cantidadLetrasController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'CantidadEnLentras',
-                  ),
-                ),
-              ),
-              Container(
-                width: 20,
-                height: 30,
-              ),
-              Container(
-                width: 250,
-                height: 30,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: '',
-                  ),
-                ),
-              ),
-              Container(
-                width: 20,
-                height: 30,
-              ),
-              Container(
-                width: 250,
-                height: 30,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: '',
-                  ),
-                ),
-              ),
-              Container(
-                width: 20,
-                height: 30,
-              ),
-              Container(
-                width: 250,
-                height: 30,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: '',
-                  ),
-                ),
-              ),
-              //Indicar final de la ro
-            ]),
-            Divider(
-              color: Colors.black,
-              thickness: 1,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(children: <Widget>[
-              Container(
-                width: 20,
-                height: 30,
-              ),
-              Container(
-                width: 200,
-                height: 30,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Fecha',
-                  ),
-                ),
-              ),
-              Container(
-                width: 20,
-                height: 30,
-              ),
-              Container(
-                width: 90,
-                height: 30,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'IdUsuario',
-                  ),
-                ),
-              ),
-              Container(
-                width: 20,
-                height: 30,
-              ),
-              Container(
-                width: 90,
-                height: 30,
-                child: TextFormField(
-                  controller: idEmpleadoController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'IdEmpleado',
-                  ),
-                ),
-              ),
-              Container(
-                width: 20,
-                height: 30,
-              ),
-              Container(
-                width: 250,
-                height: 30,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Empleado',
-                  ),
-                ),
-              ),
-              Container(
-                width: 20,
-                height: 30,
-              ),
-
-              TextButton(
-                onPressed: null,
-                child: ElevatedButton(
-                  onPressed: () => Navigator.of(context).push(
-                    new MaterialPageRoute(
-                      builder: (BuildContext context) => new EscogerTipoPago(),
+                  Divider(),
+                  Row(children: <Widget>[
+                    Container(
+                      width: 15,
+                      height: 30,
                     ),
-                  ),
-                  child: Text('EscogerTipoPago'),
-                ),
+                    Text(
+                      'Venta:',
+                      style: GoogleFonts.roboto(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    Container(
+                      width: 80,
+                      height: 30,
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        controller: idVentaController,
+                        decoration: InputDecoration(),
+                      ),
+                    ),
+                    Container(
+                      width: 15,
+                      height: 30,
+                    ),
+                    Text(
+                      'Talonario:',
+                      style: GoogleFonts.roboto(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    Container(
+                      width: 80,
+                      height: 30,
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(),
+                      ),
+                    ),
+                    Container(
+                      width: 15,
+                      height: 30,
+                    ),
+                    Text(
+                      'Numero de la factura:',
+                      style: GoogleFonts.roboto(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    Container(
+                      width: 80,
+                      height: 30,
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(),
+                      ),
+                    ),
+                    Container(
+                      width: 15,
+                      height: 30,
+                    ),
+                    Text(
+                      'CAI:',
+                      style: GoogleFonts.roboto(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    Container(
+                      width: 80,
+                      height: 30,
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(),
+                      ),
+                    ),
+                    Container(
+                      width: 15,
+                      height: 30,
+                    ),
+                    Text(
+                      'Fecha Limite Emisión:',
+                      style: GoogleFonts.roboto(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    Container(
+                      width: 80,
+                      height: 30,
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(),
+                      ),
+                    ),
+                    Text(
+                      'Rango Inicial:',
+                      style: GoogleFonts.roboto(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    Container(
+                      width: 80,
+                      height: 30,
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(),
+                      ),
+                    ),
+                    Text(
+                      'Rango Final:',
+                      style: GoogleFonts.roboto(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    Container(
+                      width: 80,
+                      height: 30,
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(),
+                      ),
+                    ),
+                  ]),
+                ],
               ),
-              Container(
-                width: 10,
-                height: 30,
-              ),
-              Container(
-                width: 90,
-                height: 30,
-                child: TextFormField(
-                  controller: idTipoPagoController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'IdTipoPago',
-                  ),
-                ),
-              ),
-              Container(
-                width: 20,
-                height: 30,
-              ),
-
-              Container(
-                width: 20,
-                height: 30,
-              ),
-              Container(
-                width: 150,
-                height: 30,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Estado',
-                  ),
-                ),
-              ),
-              //Indicar final de la ro
-            ]),
-            SizedBox(
-              height: 20,
             ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+              margin: EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Datos del cliente',
+                    style: GoogleFonts.poppins(
+                        color: Colors.blue, fontWeight: FontWeight.w500),
+                  ),
+                  Divider(),
+                  Row(children: <Widget>[
+                    Container(
+                      width: 20,
+                      height: 30,
+                    ),
+                    Text(
+                      'Id Client:',
+                      style: GoogleFonts.roboto(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    Container(
+                      width: 80,
+                      height: 30,
+                      child: TextField(
+                        controller: idClienteController,
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(),
+                      ),
+                    ),
+                    Container(
+                      width: 20,
+                      height: 30,
+                    ),
+                    Text(
+                      'Nombre Cliente:',
+                      style: GoogleFonts.roboto(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    Container(
+                      width: 80,
+                      height: 30,
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(),
+                      ),
+                    ),
+                    Container(
+                      width: 20,
+                      height: 30,
+                    ),
+                    Text(
+                      'RTN:',
+                      style: GoogleFonts.roboto(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    Container(
+                      width: 80,
+                      height: 30,
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(),
+                      ),
+                    ),
+                    Container(
+                      width: 20,
+                      height: 30,
+                    ),
+                    Text(
+                      'DNI:',
+                      style: GoogleFonts.roboto(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    Container(
+                      width: 80,
+                      height: 30,
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(),
+                      ),
+                    ),
+                    Container(
+                      width: 20,
+                      height: 30,
+                    ),
+                    Text(
+                      'Direccion:',
+                      style: GoogleFonts.roboto(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    Container(
+                      width: 80,
+                      height: 30,
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(),
+                      ),
+                    ),
+                    Text(
+                      'Id Empleado:',
+                      style: GoogleFonts.roboto(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    Container(
+                      width: 80,
+                      height: 30,
+                      child: TextField(
+                        controller: idEmpleadoController,
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(),
+                      ),
+                    ),
+                    Text(
+                      'Empleado:',
+                      style: GoogleFonts.roboto(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    Container(
+                      width: 80,
+                      height: 30,
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(),
+                      ),
+                    ),
+                    //Indicar final de la ro
+                  ]),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+              margin: EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Datos ',
+                    style: GoogleFonts.poppins(
+                        color: Colors.blue, fontWeight: FontWeight.w500),
+                  ),
+                  Divider(),
+                  Row(children: <Widget>[
+                    Container(
+                      width: 20,
+                      height: 30,
+                    ),
+                    Text(
+                      'Fecha:',
+                      style: GoogleFonts.roboto(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    Container(
+                      width: 80,
+                      height: 30,
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(),
+                      ),
+                    ),
+                    Container(
+                      width: 20,
+                      height: 30,
+                    ),
+                    Text(
+                      'Id Usuario:',
+                      style: GoogleFonts.roboto(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    Container(
+                      width: 80,
+                      height: 30,
+                      child: TextField(
+                        controller: idUsuarioController,
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(),
+                      ),
+                    ),
+                    Container(
+                      width: 20,
+                      height: 30,
+                    ),
+                    Text(
+                      'Estado:',
+                      style: GoogleFonts.roboto(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    Container(
+                      width: 80,
+                      height: 30,
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(),
+                      ),
+                    ),
+                    Container(
+                      width: 20,
+                      height: 30,
+                    ),
+                    Text(
+                      'IdNumero:',
+                      style: GoogleFonts.roboto(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    Container(
+                      width: 80,
+                      height: 30,
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(),
+                      ),
+                    ),
+                    Container(
+                      width: 20,
+                      height: 30,
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CrearTipoPagos()));
+                      },
+                      child: Text(
+                        'Ver Tipos de pago',
+                        style: GoogleFonts.roboto(
+                            color: Colors.blue, fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                    Text(
+                      'Id Tipo Pago:',
+                      style: GoogleFonts.roboto(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    Container(
+                      width: 80,
+                      height: 30,
+                      child: TextField(
+                        controller: idTipoPagoController,
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(),
+                      ),
+                    ),
+                    Text(
+                      'Tipo De pago:',
+                      style: GoogleFonts.roboto(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    Container(
+                      width: 80,
+                      height: 30,
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(),
+                      ),
+                    ),
+                    //Indicar final de la ro
+                  ]),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text('Detalles'),
             Row(
               children: [
                 Expanded(
@@ -516,71 +586,116 @@ class _CrearFacturaState extends State<CrearFactura> {
                 width: 20,
                 height: 30,
               ),
+              Text(
+                'Cantidad en Letras:',
+                style: GoogleFonts.roboto(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
               Container(
-                width: 100,
+                width: 80,
                 height: 30,
-                child: TextFormField(
+                child: TextField(
+                  controller: cantidadLetrasController,
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(),
+                ),
+              ),
+              Text(
+                'SubTotal Exonerado:',
+                style: GoogleFonts.roboto(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+              Container(
+                width: 80,
+                height: 30,
+                child: TextField(
                   controller: subTotalExoneradoController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'SubTotalExonerado',
-                  ),
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(),
+                ),
+              ),
+
+              Container(
+                width: 20,
+                height: 30,
+              ),
+              Text(
+                'Sub total:',
+                style: GoogleFonts.roboto(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+              Container(
+                width: 80,
+                height: 30,
+                child: TextField(
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(),
                 ),
               ),
               Container(
                 width: 20,
                 height: 30,
               ),
+              Text(
+                'ISV Total:',
+                style: GoogleFonts.roboto(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
               Container(
-                width: 250,
+                width: 80,
                 height: 30,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'SubTotal',
-                  ),
+                child: TextField(
+                  controller: totalISVController,
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(),
                 ),
               ),
               Container(
                 width: 20,
                 height: 30,
               ),
+              Text(
+                'Descuento Total:',
+                style: GoogleFonts.roboto(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
               Container(
-                width: 250,
+                width: 80,
                 height: 30,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Isv Total',
-                  ),
+                child: TextField(
+                  controller: totalDecuentoVentaController,
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(),
                 ),
               ),
               Container(
                 width: 20,
                 height: 30,
               ),
-              Container(
-                width: 250,
-                height: 30,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'DescuentoTotal',
-                  ),
+              Text(
+                'Total:',
+                style: GoogleFonts.roboto(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w300,
                 ),
               ),
               Container(
-                width: 20,
+                width: 80,
                 height: 30,
-              ),
-              Container(
-                width: 250,
-                height: 30,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Total',
-                  ),
+                child: TextField(
+                  controller: totalVentaController,
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(),
                 ),
               ),
               //Indicar final de la ro
@@ -600,18 +715,6 @@ class _CrearFacturaState extends State<CrearFactura> {
                       padding:
                           EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                       child: Text('Aceptar'),
-                    )),
-              ),
-            ),
-            TextButton(
-              onPressed: null,
-              child: Center(
-                child: ElevatedButton(
-                    onPressed: () => generarNumero(idVentaController.text),
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      child: Text('generar'),
                     )),
               ),
             ),
