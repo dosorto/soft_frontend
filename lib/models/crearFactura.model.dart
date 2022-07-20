@@ -1,11 +1,31 @@
 // To parse this JSON data, do
 //
-//     final cliente = clienteFromMap(jsonString);
+//     final factura = facturaFromJson(jsonString);
 
 import 'dart:convert';
 
+Factura facturaFromJson(String str) => Factura.fromJson(json.decode(str));
+
+String facturaToJson(Factura data) => json.encode(data.toJson());
+
 class Factura {
   Factura({
+    required this.insertfactura,
+  });
+
+  Insertfactura insertfactura;
+
+  factory Factura.fromJson(Map<String, dynamic> json) => Factura(
+        insertfactura: Insertfactura.fromJson(json["insertfactura"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "insertfactura": insertfactura.toJson(),
+      };
+}
+
+class Insertfactura {
+  Insertfactura({
     required this.isDelete,
     required this.idFactura,
     required this.numeroFactura,
@@ -49,11 +69,7 @@ class Factura {
   DateTime updatedAt;
   DateTime createdAt;
 
-  factory Factura.fromJson(String str) => Factura.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory Factura.fromMap(Map<String, dynamic> json) => Factura(
+  factory Insertfactura.fromJson(Map<String, dynamic> json) => Insertfactura(
         isDelete: json["isDelete"],
         idFactura: json["idFactura"],
         numeroFactura: json["numeroFactura"],
@@ -76,7 +92,7 @@ class Factura {
         createdAt: DateTime.parse(json["createdAt"]),
       );
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toJson() => {
         "isDelete": isDelete,
         "idFactura": idFactura,
         "numeroFactura": numeroFactura,

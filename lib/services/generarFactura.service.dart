@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:soft_frontend/models/models.dart';
+
+import '../models/crearFactura.model.dart';
 
 Future<void> crearFactura(
     String idVenta,
@@ -21,9 +25,13 @@ Future<void> crearFactura(
               'subTotalExonerado': subTotalExonerado,
               'cantidadLetras': cantidadLetras,
               'idTipoPago': idTipoPago,
+              'idUsuario': "1", // idUsuario
               'idEmpleado': idEmpleado,
             }));
 
+    Factura factura =
+        Factura.fromJson(json.decode(response.body)["insertfactura"]);
+    print(factura.toJson().toString());
     if (response.statusCode == 200) {
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("Factura Creado")));
