@@ -6,32 +6,18 @@ import 'package:soft_frontend/models/models.dart';
 
 import '../models/crearFactura.model.dart';
 
-Future<void> crearFactura(
-    String idVenta,
-    String subTotalExonerado,
-    String cantidadLetras,
-    String idTipoPago,
-    String idEmpleado,
-    context) async {
-  if (idVenta.isNotEmpty &&
-      subTotalExonerado.isNotEmpty &&
-      cantidadLetras.isNotEmpty &&
-      idTipoPago.isNotEmpty &&
-      idEmpleado.isNotEmpty) {
+Future<void> crearFactura(String idVenta, String idTipoPago, context) async {
+  if (idVenta.isNotEmpty && idTipoPago.isNotEmpty) {
     var response =
         await http.post(Uri.parse("http://localhost:8080/api/gene/insertfact"),
             body: ({
               'idVenta': idVenta,
-              'subTotalExonerado': subTotalExonerado,
-              'cantidadLetras': cantidadLetras,
               'idTipoPago': idTipoPago,
-              'idUsuario': "1", // idUsuario
-              'idEmpleado': idEmpleado,
             }));
 
-    Factura factura =
-        Factura.fromJson(json.decode(response.body)["insertfactura"]);
-    print(factura.toJson().toString());
+    // Factura factura =
+    //Factura.fromJson(json.decode(response.body)["insertfactura"]);
+    // print(factura.toJson().toString());
     if (response.statusCode == 200) {
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("Factura Creado")));

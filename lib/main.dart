@@ -5,7 +5,6 @@ import 'package:soft_frontend/screens/manipularFactura/manipularfactura.screen.d
 import 'package:soft_frontend/screens/screens.dart';
 import 'package:soft_frontend/screens/tipoPago/buscarTipoPagoo.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/crearTipoPago.screen.dart';
-import 'package:soft_frontend/screens/tipoPago/escogerTipoPago.screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,7 +31,6 @@ class MyApp extends StatelessWidget {
         'manipular_factura': (_) => ManipularFactura(),
         'listar_tipopago': (_) => BuscarTipoPago(),
         'crear_tipopago': (_) => CrearTipoPagos(),
-        'escoger_tipopago': (_) => EscogerTipoPago(),
         'escoger_venta': (_) => EscogerVenta(),
         //'generar_factura': (_) => CrearFactura( ),
       },

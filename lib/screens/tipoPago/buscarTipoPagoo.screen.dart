@@ -3,15 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
 import 'package:soft_frontend/models/UnTipoPagoBuscado.model.dart';
 import 'package:soft_frontend/models/tipoPagoBuscado.model.dart';
+import 'package:soft_frontend/screens/generarFactura/generarFactura.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/crearTipoPago.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/editarTipoPago.screen.dart';
 import 'package:soft_frontend/services/buscarTipoPagoo.service.dart';
 import 'package:soft_frontend/services/eliminarTipoPago.service.dart';
-
 import '../../models/tipoPago.model.dart';
 
 class BuscarTipoPago extends StatefulWidget {
-  const BuscarTipoPago({Key? key}) : super(key: key);
   @override
   State<BuscarTipoPago> createState() => _BuscarTipoPagoState();
 }
@@ -46,87 +45,12 @@ class _BuscarTipoPagoState extends State<BuscarTipoPago> {
                 child: Padding(
                   padding: EdgeInsets.only(right: size.width * 0.01),
                   child: Text(
-                    'Buscar Tipo de Pago',
+                    'Manipular Tipo de Pagos',
                     style: GoogleFonts.poppins(
                         color: Colors.black87,
                         fontSize: size.width * 0.015,
                         fontWeight: FontWeight.w600),
                   ),
-                ),
-              ),
-              Expanded(
-                  child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
-                child: TextField(
-                  controller: _textController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'id de pago',
-                  ),
-                ),
-              )),
-              ElevatedButton(
-                onPressed: () async {
-                  if (_textController.text.trim().isNotEmpty) {
-                    print(_textController.text.trim());
-                    UnTipoPagoBuscado? tipopagos =
-                        await buscarPagoPorID(_textController.text.trim());
-                    //UnTipoPagoBuscado? tipopagos = response;
-
-                    if (tipopagos != null) {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                                title: Text('Encontro'),
-                                //content: Text(
-                                //'Encontro el tipo de pago con id: ${tipopagos.idTipoPago.toString()}'),
-                                actions: [
-                                  ElevatedButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: Text('Cerrar'))
-                                ],
-                              ));
-                    } else {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                                title: Text('No  encontrado'),
-                                actions: [
-                                  ElevatedButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: Text('Cerrar'))
-                                ],
-                              ));
-                    }
-                    //TipoPagoBuscado? tipoPago =
-                    //await buscarPagoPorID(_textController.text.trim());
-                    //print(tipoPago);
-                  } else {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                              title: Text('El campo de búsqueda está vacío.'),
-                              actions: [
-                                ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: Text('Cerrar'))
-                              ],
-                            ));
-                  }
-                },
-                child: Text(
-                  'Buscar',
-                  style: GoogleFonts.lato(),
-                ),
-                style: ButtonStyle(
-                  padding: MaterialStateProperty.all(EdgeInsets.symmetric(
-                      horizontal: size.width * 0.015, vertical: 26)),
                 ),
               ),
               TextButton(
@@ -250,9 +174,13 @@ class _BuscarTipoPagoState extends State<BuscarTipoPago> {
             ),
             TextButton(
               onPressed: () =>
-                  EliminarTipoPago(tipoPago.idTipoPago.toString(), context),
+                  EliminarTipoPago(tipoPago.idTipoPago.toString(), context)
+                      .then((value) => this._cargarFact()),
               child: Text('Eliminar'),
-              //recargar pagina despues de eliminar
+            ),
+            TextButton(
+              onPressed: () => tipoPago.idTipoPago.toString(),
+              child: Text('Selweccionar'),
             ),
           ],
         ));
