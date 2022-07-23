@@ -1,21 +1,13 @@
-import 'dart:convert';
-import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_frontend/models/ventaBuscada.model.dart';
-import 'package:soft_frontend/screens/tipoPago/crearTipoPago.screen.dart';
-import 'package:soft_frontend/services/cliente.service.dart';
 import 'package:soft_frontend/services/generarFactura.service.dart';
-import 'package:flutter/material.dart';
-import 'package:soft_frontend/models/tipoPago.model.dart';
-import 'package:soft_frontend/services/editarTipoPago.service.dart';
 import '../../models/tipoPagoBuscado.model.dart';
-import '../tipoPago/buscarTipoPagoo.screen.dart';
+import '../../services/buscarTipoPagoo.service.dart';
 import 'escogerVenta.screen.dart';
 
 class CrearFactura extends StatefulWidget {
   final MostrarVenta venta;
-
   const CrearFactura({Key? key, required this.venta}) : super(key: key);
 
   @override
@@ -23,6 +15,7 @@ class CrearFactura extends StatefulWidget {
 }
 
 class _CrearFacturaState extends State<CrearFactura> {
+  List<TipoPagoBuscado> tipoPagos = [];
   var idVentaController = TextEditingController();
   var totalISVController = TextEditingController();
   var totalVentaController = TextEditingController();
@@ -43,8 +36,17 @@ class _CrearFacturaState extends State<CrearFactura> {
   var nombreEmpleadoController = TextEditingController();
   var estadoController = TextEditingController();
   //colocar fecha de hoy en un controlador
-
   var FechaController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    this._cargarFact();
+  }
+
+  _cargarFact() async {
+    this.tipoPagos = await traerPago();
+    setState(() {});
+  }
 
   Widget build(BuildContext context) {
     estadoController.text = '1';
@@ -90,13 +92,16 @@ class _CrearFacturaState extends State<CrearFactura> {
                 children: [
                   Text(
                     'Seleccione un metodo de pago: ',
-                    style: GoogleFonts.poppins(
-                        color: Colors.blue, fontWeight: FontWeight.w500),
+                    style: GoogleFonts.adamina(
+                        fontSize: 20,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500),
                   ),
                   Divider(),
                 ],
               ),
             ),
+            Expanded(child: _listViewTipoPag()),
             TextButton(
               onPressed: null,
               child: Center(
@@ -112,13 +117,55 @@ class _CrearFacturaState extends State<CrearFactura> {
                     child: Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      child: Text('Aceptar'),
+                      child: Text('Generar factura'),
                     )),
               ),
-            )
+            ),
+            SizedBox(
+              height: 20,
+            ),
           ],
         ),
       ),
     );
+  }
+
+  ListView _listViewTipoPag() {
+    return ListView.separated(
+      physics: BouncingScrollPhysics(),
+      separatorBuilder: (_, i) => Divider(),
+      itemCount: tipoPagos.length,
+      itemBuilder: (_, i) => _pagoItemList(tipoPagos[i]),
+    );
+  }
+
+  Container _pagoItemList(TipoPagoBuscado tipoPago) {
+    Size size = MediaQuery.of(this.context).size;
+    return Container(
+        decoration: BoxDecoration(color: Colors.white),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextButton(
+              onPressed: () => {
+                setState(() {
+                  idTipoPagoController.text = tipoPago.idTipoPago.toString();
+                })
+              },
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                child: Text(
+                  tipoPago.idTipoPago.toString() +
+                      '    -    ' +
+                      tipoPago.tipoDePago,
+                  style: GoogleFonts.adamina(
+                      fontSize: 20,
+                      color: Colors.blue,
+                      fontWeight: FontWeight.w500),
+                ),
+              ),
+            ),
+          ],
+        ));
   }
 }
